@@ -29,12 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
               width: Get.width * .3,
               color: Colors.amberAccent,
             ),
+            SizedBox(height: 50,),
             ListTile(
               title: Text('message'.tr),
               subtitle: Text('name'.tr),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               children: [

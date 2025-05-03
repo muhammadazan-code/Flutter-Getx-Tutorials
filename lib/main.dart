@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x_tutorial/examples/example_three.dart';
+import 'package:get_x_tutorial/examples/image_picker_screen.dart';
 import 'package:get_x_tutorial/languages.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       translations: Languages(),
       locale: Locale('en', 'us'),
       fallbackLocale: Locale("en", "USA"),
-      home: ExampleThree(),
+      home: ImagePickerScreen(),
     );
   }
 }
