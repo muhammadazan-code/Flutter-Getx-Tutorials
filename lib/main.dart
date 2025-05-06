@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_x_tutorial/languages.dart';
-import 'package:get_x_tutorial/screen/login_screen.dart';
+import 'package:get_x_tutorial/data/app_exception.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,11 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      translations: Languages(),
-      locale: Locale('en', 'us'),
-      fallbackLocale: Locale("en", "USA"),
-      home: LoginScreen(),
+    return MaterialApp(
+      home: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+         throw RequestTimeOut(message: "message");
+        }),
+      ),
     );
   }
 }
