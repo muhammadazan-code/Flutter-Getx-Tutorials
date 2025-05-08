@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:get_x_tutorial/data/app_exception.dart';
 import 'package:get_x_tutorial/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
 
-class ClassName extends BaseApiServices {
+class NetworkApiServices extends BaseApiServices {
   @override
+  // This one method is for GET Apis.
   Future<dynamic> getApi(String url) async {
     if (kDebugMode) {
       print(url);
@@ -17,16 +17,16 @@ class ClassName extends BaseApiServices {
     try {
       final response =
           await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
-      jsonResponse = returnResponse(response);
+      jsonResponse = returnGetResponse(response);
     } on SocketException {
-      throw InternetException(message: "No internet");
+      throw InternetException();
     } on TimeoutException {
-      throw RequestTimeOut(message: "Request Time out");
+      throw RequestTimeOut();
     }
     return jsonResponse;
   }
 
-  dynamic returnResponse(http.Response response) {
+  dynamic returnGetResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
@@ -40,6 +40,7 @@ class ClassName extends BaseApiServices {
   }
 
   @override
+  // This one method is for POST Apis.
   Future<dynamic> postApi(var data, String url) async {
     dynamic jsonResponse;
     if (kDebugMode) {
@@ -47,9 +48,13 @@ class ClassName extends BaseApiServices {
       print(data);
     }
     try {
-      final response =
-          await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
-      jsonResponse = returnResponse(response);
+      final response = await http
+          .post(
+            Uri.parse(url),
+            body: jsonEncode(data),
+          )
+          .timeout(Duration(seconds: 10));
+      jsonResponse = returnPostResponse(response);
     } on SocketException {
       throw InternetException(message: "No internet");
     } on TimeoutException {

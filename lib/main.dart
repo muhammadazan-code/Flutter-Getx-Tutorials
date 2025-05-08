@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_x_tutorial/data/app_exception.dart';
+import 'package:get/get.dart';
+import 'package:get_x_tutorial/resources/routes/routes.dart';
+import 'package:get_x_tutorial/resources/routes/routes_names.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,12 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {
-         throw RequestTimeOut(message: "message");
-        }),
+    return GetMaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      locale: Locale('en','US'),
+      fallbackLocale: Locale('urd','PK'),
+      initialRoute: RoutesNames.splashScreen,
+      getPages: AppRoutes.appRoutes(),
     );
   }
 }
