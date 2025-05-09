@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      locale: Locale('en','US'),
-      fallbackLocale: Locale('urd','PK'),
+      locale: Locale('en', 'US'),
+      fallbackLocale: Locale('urd', 'PK'),
       initialRoute: RoutesNames.splashScreen,
       getPages: AppRoutes.appRoutes(),
     );

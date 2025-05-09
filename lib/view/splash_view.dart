@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_x_tutorial/resources/assets/images_assets.dart';
+import 'package:get_x_tutorial/resources/components/general_exception_widget.dart';
+import 'package:get_x_tutorial/resources/components/round_button.dart';
 import 'package:get_x_tutorial/utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Center(child: Image.asset(ImageAssets.splashScreenImage))],
+          children: [
+            Center(
+                child: GeneralExceptionWidget(
+              onPress: () {},
+            )),
+            RoundButtonWidget(
+                loading: false, onPress: () {}, title: 'L o g i n',height: 60,width: 200,textColor: Colors.white,)
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
