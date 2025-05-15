@@ -1,0 +1,15 @@
+import 'dart:async';
+
+import 'package:get/get.dart';
+import 'package:get_x_tutorial/resources/routes/routes_names.dart';
+
+class SplashServices {
+  void isLogin() {
+    Timer(
+      Duration(seconds: 3),
+      () => Get.toNamed(
+        RoutesNames.loginScreen,
+      ),
+    );
+  }
+}

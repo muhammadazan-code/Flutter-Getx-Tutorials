@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_x_tutorial/resources/routes/routes_names.dart';
-import 'package:get_x_tutorial/view/splash_view.dart';
+import 'package:get_x_tutorial/view/home/home_view.dart';
+import 'package:get_x_tutorial/view/login/login_screen.dart';
+import 'package:get_x_tutorial/view/splash/splash_view.dart';
 
 class AppRoutes {
   static appRoutes() => [
@@ -10,5 +12,17 @@ class AppRoutes {
           transitionDuration: Duration(microseconds: 250),
           transition: Transition.leftToRightWithFade,
         ),
-  ];
+        GetPage(
+          name: RoutesNames.loginScreen,
+          page: () => LoginScreen(),
+          transitionDuration: Duration(microseconds: 250),
+          transition: Transition.leftToRightWithFade,
+        ),
+        GetPage(
+          name: RoutesNames.homeScreen,
+          page: () => HomeScreen(),
+          transitionDuration: Duration(microseconds: 250),
+          transition: Transition.leftToRightWithFade,
+        ),
+      ];
 }

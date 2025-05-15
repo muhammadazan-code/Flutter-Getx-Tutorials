@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_x_tutorial/resources/components/general_exception_widget.dart';
 import 'package:get_x_tutorial/resources/components/round_button.dart';
 import 'package:get_x_tutorial/utils/utils.dart';
+import 'package:get_x_tutorial/view_models/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,6 +12,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SplashServices splashServices = SplashServices();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    splashServices.isLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +33,13 @@ class _SplashScreenState extends State<SplashScreen> {
               onPress: () {},
             )),
             RoundButtonWidget(
-                loading: false, onPress: () {}, title: 'L o g i n',height: 60,width: 200,textColor: Colors.white,)
+              loading: false,
+              onPress: () {},
+              title: 'L o g i n',
+              height: 60,
+              width: 200,
+              textColor: Colors.white,
+            )
           ],
         ),
       ),
