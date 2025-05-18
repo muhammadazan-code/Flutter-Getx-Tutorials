@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       translations: Languages(),
       locale: Locale('en_us', 'us'),
       fallbackLocale: Locale("en", "USA"),
-      initialRoute: RoutesNames.splashScreen,
+      initialRoute: RoutesNames.homeScreen,
       getPages: AppRoutes.appRoutes(),
     );
   }

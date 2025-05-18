@@ -20,7 +20,7 @@ class AppRoutes {
         ),
         GetPage(
           name: RoutesNames.homeScreen,
-          page: () => HomeScreen(),
+          page: () => HomeView(),
           transitionDuration: Duration(microseconds: 250),
           transition: Transition.leftToRightWithFade,
         ),

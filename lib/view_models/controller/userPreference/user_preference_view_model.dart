@@ -1,17 +1,22 @@
-import 'package:get_x_tutorial/models/loginModel/login_response_model.dart';
+import 'package:get_x_tutorial/models/loginModel/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferenceModel {
-  Future<bool> saveUser(LoginResponseModel responseModel) async {
+  Future<bool> saveUser(UserModel responseModel) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString('token', responseModel.token.toString());
+    sp.setBool('isLogin', responseModel.isLogin!);
     return true;
   }
 
-  Future<LoginResponseModel> getUser() async {
+  Future<UserModel> getUser() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    dynamic response = sp.get('token');
-    return LoginResponseModel.fromJson(response);
+    dynamic token = sp.get('token');
+    bool? isLogin = sp.getBool('isLogin');
+    return UserModel.fromJson({
+      'token': token,
+      'isLogin': isLogin,
+    });
   }
 
   Future<bool> removeUser() async {
