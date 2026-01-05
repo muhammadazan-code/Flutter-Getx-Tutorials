@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x_tutorial/counter_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool light = true;
+  final CounterController controller = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,97 +19,61 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text("Get X Tutorials"),
         ),
       ),
-      body: Column(
-        children: [
-          Card(
-            child: ListTile(
-              title: Text("Getx Dialog Alert"),
-              subtitle: Text("Gets dialog alert with getx."),
-              onTap: () {
-                Get.defaultDialog(
-                    title: "Delete chat",
-                    titlePadding: EdgeInsets.all(10),
-                    content: Text("Are you sure?"),
-                    cancel: TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Back"),
-                    ),
-                    confirm: TextButton(
-                        onPressed: () {
-                          Get.back();
-                          Navigator.pop(context);
-                        },
-                        child: Text("Yes")));
-              },
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: Get.height * .3,
+              width: Get.width * .3,
+              color: Colors.amberAccent,
             ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Getx Bottom Sheet"),
-              subtitle: Text("Getx bottom sheet with getx."),
-              onTap: () {
-                Get.bottomSheet(
-                  Container(
-                    height: 100,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Get.changeTheme(ThemeData.light());
-                          },
-                          child: Text(
-                            "Light",
-                            style: TextStyle(color: Colors.black, fontSize: 30),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.changeTheme(ThemeData.dark());
-                          },
-                          child: Text(
-                            "Dark",
-                            style: TextStyle(color: Colors.black, fontSize: 30),
-                          ),
-                        )
-                      ],
-                    ),
+            ListTile(
+              title: Text('message'.tr),
+              subtitle: Text('name'.tr),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Get.updateLocale(Locale('en', 'us'));
+                  },
+                  child: Text("English"),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    Get.updateLocale(Locale('ur', 'pk'));
+                  },
+                  child: Text("Urdu"),
+                ),
+              ],
+            ),
+            Obx(
+              () {
+                return Text(
+                  controller.counter.toString(),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
                 );
               },
             ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Get.toNamed("/screen_one", arguments: {
-                  "name": "Hello World",
-                });
-              },
-              child: Text("Go to Screen one"))
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.snackbar(
-            "Hello",
-            "World",
-            duration: Duration(seconds: 1),
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.blueAccent,
-            mainButton: TextButton(
-              onPressed: () {},
-              child: Text("On"),
-            ),
-          );
+          controller.incrementCounter();
         },
+        child: Icon(Icons.add),
       ),
     );
   }
