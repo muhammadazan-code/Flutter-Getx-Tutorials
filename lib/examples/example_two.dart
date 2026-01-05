@@ -27,11 +27,11 @@ class _ExampleTwoState extends State<ExampleTwo> {
           Obx(() => Container(
                 height: 100,
                 width: 100,
+                // ignore: deprecated_member_use
                 color: Colors.red.withOpacity(controller.opacity.value),
               )),
-          Obx(() => Slider(value: controller.opacity.value, onChanged: (value) {
-            controller.setOpacity(value);
-          })),
+          Obx(() =>
+              Slider(value: controller.opacity.value, onChanged: (value) {})),
         ],
       ),
     );
