@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x_tutorial/resources/localization/languages.dart';
 import 'package:get_x_tutorial/resources/routes/routes.dart';
 import 'package:get_x_tutorial/resources/routes/routes_names.dart';
 
@@ -16,10 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      locale: Locale('en', 'US'),
-      fallbackLocale: Locale('urd', 'PK'),
+      translations: Languages(),
+      locale: Locale('en_us', 'us'),
+      fallbackLocale: Locale("en", "USA"),
       initialRoute: RoutesNames.splashScreen,
       getPages: AppRoutes.appRoutes(),
     );
   }
 }
+
