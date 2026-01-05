@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x_tutorial/models/loginModel/login_response_model.dart';
+import 'package:get_x_tutorial/models/loginModel/user_model.dart';
 import 'package:get_x_tutorial/repository/login_repository/login_repository.dart';
 import 'package:get_x_tutorial/utils/utils.dart';
 import 'package:get_x_tutorial/view_models/controller/userPreference/user_preference_view_model.dart';
@@ -28,13 +28,13 @@ class LoginViewModel extends GetxController {
       if (value['error'] == 'User not found') {
         Get.snackbar('Login', value['error']);
       } else {
-        userPreferenceModel.saveUser(LoginResponseModel.fromJson(value)).then((value){
+        UserModel userModel = UserModel(token: value['token'], isLogin: true);
+        userPreferenceModel.saveUser(UserModel.fromJson(value)).then((value) {
           Get.snackbar('User Saved', 'Saved');
-        }).onError((error, stackTrace){
+        }).onError((error, stackTrace) {
           Get.snackbar('Not save', 'user not saved.');
         });
         Utils.snackBar(title: 'login_successfully'.tr, message: 'token');
-
       }
     }).onError((error, statckTrace) {
       loading.value = false;

@@ -1,30 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_x_tutorial/data/response/status.dart';
+import 'package:get_x_tutorial/resources/components/general_exception_widget.dart';
+import 'package:get_x_tutorial/resources/components/internet_exception_widget.dart';
+import 'package:get_x_tutorial/resources/routes/routes_names.dart';
+import 'package:get_x_tutorial/view_models/controller/home/home_view_model.dart';
+import 'package:get_x_tutorial/view_models/controller/userPreference/user_preference_view_model.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeViewState extends State<HomeView> {
+  final homeController = Get.put(HomeController());
+  UserPreferenceModel userPreferenceModel = UserPreferenceModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.userListApi();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text("H o m e"),
-        ),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                userPreferenceModel.removeUser().then((value) {
+                  Get.toNamed(RoutesNames.loginScreen);
+                });
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Text(''),
-            Text(''),
-          ],
-        ),
-      ),
+      body: Obx(() {
+        switch (homeController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return const Center(child: CircularProgressIndicator());
+          case Status.ERROR:
+            if (homeController.error.value == 'No internet') {
+              return InternetExceptionWidget(
+                onPress: () {
+                  homeController.refreshApi();
+                },
+              );
+            } else {
+              return GeneralExceptionWidget(onPress: () {
+                homeController.refreshApi();
+              });
+            }
+          case Status.COMPLETED:
+            return ListView.builder(
+                itemCount: homeController.userList.value.data!.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(homeController
+                            .userList.value.data![index].avatar
+                            .toString()),
+                      ),
+                      title: Text(homeController
+                          .userList.value.data![index].firstName
+                          .toString()),
+                      subtitle: Text(homeController
+                          .userList.value.data![index].email
+                          .toString()),
+                    ),
+                  );
+                });
+        }
+      }),
     );
   }
 }
