@@ -1,10 +1,11 @@
 class AppException implements Exception {
-  final _message;
-  final _profile;
+  final dynamic _message;
+  final dynamic _profile;
   AppException([
     this._message,
     this._profile,
   ]);
+  @override
   String toString() {
     return "$_profile $_message";
   }
@@ -18,7 +19,7 @@ class RequestTimeOut extends AppException {
   RequestTimeOut({String? message}) : super(message, "Request Time out");
 }
 class InvalidUrlException extends AppException {
-  InvalidUrlException({String? message}) : super(message, "Invalid Url");
+  InvalidUrlException({String? message}) : super(message, "");
 }
 class FetchDataException extends AppException {
   FetchDataException({String? message}) : super(message,"");

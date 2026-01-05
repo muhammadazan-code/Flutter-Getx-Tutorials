@@ -4,7 +4,11 @@ class ApiResponse<T> {
   Status? status;
   String? message;
   T? data;
+
+  // Constructor
   ApiResponse(this.data, this.message, this.status);
+
+  // Named Constructor
   ApiResponse.loading() : status = Status.LOADING;
   ApiResponse.completed(this.data) : status = Status.COMPLETED;
   ApiResponse.error(this.message) : status = Status.ERROR;
